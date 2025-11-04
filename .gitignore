@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+*.swp
+*.swo
+*~
+vendor/
+composer.lock
+db/*.db
+db/*.db-shm
+db/*.db-wal

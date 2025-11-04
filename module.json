@@ -1,0 +1,14 @@
+{
+  "developer":"MIKO",
+  "moduleUniqueID":"ModuleJapaneseLanguagePack",
+  "support_email": "help@miko.ru",
+  "version": "%ModuleVersion%",
+  "min_pbx_version": "2025.1.1",
+  "module_type": "languagepack",
+  "language_code": "ja-jp",
+  "release_settings": {
+    "publish_release": true,
+    "changelog_enabled": true,
+    "create_github_release": true
+  }
+}
