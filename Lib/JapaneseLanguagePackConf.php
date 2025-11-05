@@ -19,6 +19,9 @@
 
 namespace Modules\ModuleJapaneseLanguagePack;
 
+use MikoPBX\Common\Models\PbxSettings;
+use MikoPBX\Core\System\Configs\SoundFilesConf;
+use MikoPBX\Core\System\SystemMessages;
 use MikoPBX\Modules\Config\ConfigClass;
 
 /**
@@ -30,8 +33,9 @@ use MikoPBX\Modules\Config\ConfigClass;
  * - Complete Japanese UI translations (15 files in Messages/ja/)
  * - Japanese voice prompts (612 sound files in sounds/ja-jp/)
  *
- * Language Pack modules are installed automatically without additional configuration.
- * Sound files and translations are managed by the core system.
+ * Language Pack modules manage sound files on enable/disable:
+ * - Enable: Install sound files to system
+ * - Disable: Remove sound files and fallback to English if needed
  *
  * @package Modules\ModuleJapaneseLanguagePack
  */
@@ -48,19 +52,84 @@ class ModuleJapaneseLanguagePackConf extends ConfigClass
     public const string LANGUAGE_CODE = 'ja-jp';
 
     /**
-     * Returns module description for the admin interface
+     * Called when module is enabled
+     * Installs Japanese sound files to the system
      *
-     * @return array Module description
+     * @return void
      */
-    public function getModuleDescription(): array
+    public function onAfterModuleEnable(): void
     {
-        return [
-            'name' => 'Japanese Language Pack',
-            'description' => 'Complete Japanese language support including UI translations and voice prompts',
-            'developer' => 'MikoPBX',
-            'version' => '1.0.0',
-            'language_code' => self::LANGUAGE_CODE,
-            'module_type' => 'languagepack'
-        ];
+        SystemMessages::sysLogMsg(
+            __METHOD__,
+            'Japanese Language Pack enabled, installing sound files',
+            LOG_INFO
+        );
+
+        // Install sound files (612 files)
+        $result = SoundFilesConf::installModuleSounds(self::MODULE_ID);
+
+        if ($result) {
+            SystemMessages::sysLogMsg(
+                __METHOD__,
+                'Japanese sound files installed successfully',
+                LOG_INFO
+            );
+        } else {
+            SystemMessages::sysLogMsg(
+                __METHOD__,
+                'Failed to install Japanese sound files',
+                LOG_WARNING
+            );
+        }
+    }
+
+    /**
+     * Called when module is disabled
+     * Removes Japanese sound files and switches to English if Japanese was active
+     *
+     * @return void
+     */
+    public function onAfterModuleDisable(): void
+    {
+        SystemMessages::sysLogMsg(
+            __METHOD__,
+            'Japanese Language Pack disabled, removing sound files',
+            LOG_INFO
+        );
+
+        // Check if Japanese language is currently active
+        $currentLanguage = PbxSettings::getValueByKey(PbxSettings::PBX_LANGUAGE);
+
+        if ($currentLanguage === self::LANGUAGE_CODE) {
+            // Switch to English as fallback
+            $languageSetting = PbxSettings::findFirstByKey(PbxSettings::PBX_LANGUAGE);
+            if ($languageSetting !== null) {
+                $languageSetting->value = 'en-en';
+                $languageSetting->save();
+
+                SystemMessages::sysLogMsg(
+                    __METHOD__,
+                    'System language switched from ja-jp to en-en (fallback)',
+                    LOG_NOTICE
+                );
+            }
+        }
+
+        // Remove sound files (entire ja-jp directory)
+        $result = SoundFilesConf::removeModuleSounds(self::MODULE_ID);
+
+        if ($result) {
+            SystemMessages::sysLogMsg(
+                __METHOD__,
+                'Japanese sound files removed successfully',
+                LOG_INFO
+            );
+        } else {
+            SystemMessages::sysLogMsg(
+                __METHOD__,
+                'Failed to remove Japanese sound files',
+                LOG_WARNING
+            );
+        }
     }
 }
