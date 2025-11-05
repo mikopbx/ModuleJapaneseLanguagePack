@@ -1,5 +1,3 @@
-{{ partial("partials/header") }}
-
 <div class="ui segment">
     <div class="ui message">
         <div class="header">
@@ -122,5 +120,3 @@
         </a>
     </div>
 </div>
-
-{{ partial("partials/footer") }}

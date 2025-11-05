@@ -83,7 +83,7 @@ class ModuleJapaneseLanguagePackController extends BaseController
         }
         $this->view->translationFileCount = $translationFileCount;
 
-        // Set view path
-        $this->view->pick('Modules/' . $this->moduleUniqueID . '/index');
+        // Set view path (Modules/ModuleJapaneseLanguagePack/ModuleJapaneseLanguagePack/index)
+        $this->view->pick('Modules/' . $this->moduleUniqueID . '/' . $this->moduleUniqueID . '/index');
     }
 }
