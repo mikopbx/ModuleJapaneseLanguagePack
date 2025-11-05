@@ -1,122 +1,33 @@
 <div class="ui segment">
-    <div class="ui message">
-        <div class="header">
-            <i class="japan flag"></i>
+    <h2 class="ui header">
+        <i class="japan flag"></i>
+        <div class="content">
             {{ t._('BreadcrumbModuleJapaneseLanguagePack') }}
+            <div class="sub header">{{ t._('SubHeaderModuleJapaneseLanguagePack') }}</div>
         </div>
-        <p>{{ t._('SubHeaderModuleJapaneseLanguagePack') }}</p>
-    </div>
+    </h2>
 
-    <div class="ui three column stackable grid">
-        <div class="column">
-            <div class="ui segment">
-                <h3 class="ui header">
-                    <i class="microphone icon"></i>
-                    <div class="content">
-                        {{ t._('mlp_SoundFiles') }}
-                        <div class="sub header">{{ t._('mlp_SoundFilesDescription') }}</div>
-                    </div>
-                </h3>
-                <div class="ui statistic">
-                    <div class="value">
-                        {{ soundFileCount }}
-                    </div>
-                    <div class="label">{{ t._('mlp_Files') }}</div>
-                </div>
+    <div class="ui two statistics">
+        <div class="statistic">
+            <div class="value">
+                <i class="microphone icon"></i> {{ soundFileCount }}
             </div>
+            <div class="label">{{ t._('mlp_SoundFiles') }}</div>
         </div>
-
-        <div class="column">
-            <div class="ui segment">
-                <h3 class="ui header">
-                    <i class="language icon"></i>
-                    <div class="content">
-                        {{ t._('mlp_Translations') }}
-                        <div class="sub header">{{ t._('mlp_TranslationsDescription') }}</div>
-                    </div>
-                </h3>
-                <div class="ui statistic">
-                    <div class="value">
-                        {{ translationFileCount }}
-                    </div>
-                    <div class="label">{{ t._('mlp_TranslationFiles') }}</div>
-                </div>
+        <div class="statistic">
+            <div class="value">
+                <i class="language icon"></i> {{ translationFileCount }}
             </div>
-        </div>
-
-        <div class="column">
-            <div class="ui segment">
-                <h3 class="ui header">
-                    <i class="checkmark icon"></i>
-                    <div class="content">
-                        {{ t._('mlp_HowToUse') }}
-                        <div class="sub header">{{ t._('mlp_HowToUseDescription') }}</div>
-                    </div>
-                </h3>
-                <div class="ui list">
-                    <div class="item">
-                        <i class="right triangle icon"></i>
-                        <div class="content">
-                            {{ t._('mlp_Step1') }}
-                        </div>
-                    </div>
-                    <div class="item">
-                        <i class="right triangle icon"></i>
-                        <div class="content">
-                            {{ t._('mlp_Step2') }}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="label">{{ t._('mlp_Translations') }}</div>
         </div>
     </div>
 
     <div class="ui info message">
-        <div class="header">
-            <i class="info circle icon"></i>
-            {{ t._('mlp_ImportantNote') }}
-        </div>
-        <p>{{ t._('mlp_ImportantNoteText') }}</p>
+        <p>{{ t._('mlp_Step1') }}</p>
     </div>
 
-    <div class="ui segment">
-        <h3 class="ui header">
-            <i class="book icon"></i>
-            {{ t._('mlp_WhatsIncluded') }}
-        </h3>
-        <div class="ui list">
-            <div class="item">
-                <i class="check circle outline icon green"></i>
-                <div class="content">
-                    <div class="header">{{ t._('mlp_VoicePrompts') }}</div>
-                    <div class="description">{{ t._('mlp_VoicePromptsText') }}</div>
-                </div>
-            </div>
-            <div class="item">
-                <i class="check circle outline icon green"></i>
-                <div class="content">
-                    <div class="header">{{ t._('mlp_UITranslations') }}</div>
-                    <div class="description">{{ t._('mlp_UITranslationsText') }}</div>
-                </div>
-            </div>
-            <div class="item">
-                <i class="check circle outline icon green"></i>
-                <div class="content">
-                    <div class="header">{{ t._('mlp_AutomaticIntegration') }}</div>
-                    <div class="description">{{ t._('mlp_AutomaticIntegrationText') }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="ui buttons">
-        <a href="{{ url('general-settings/modify') }}" class="ui blue button">
-            <i class="cog icon"></i>
-            {{ t._('mlp_GoToGeneralSettings') }}
-        </a>
-        <a href="https://github.com/mikopbx/ModuleJapaneseLanguagePack" target="_blank" class="ui button">
-            <i class="github icon"></i>
-            {{ t._('mlp_ViewOnGitHub') }}
-        </a>
-    </div>
+    <a href="{{ url('general-settings/modify') }}" class="ui primary button">
+        <i class="cog icon"></i>
+        {{ t._('mlp_GoToGeneralSettings') }}
+    </a>
 </div>
