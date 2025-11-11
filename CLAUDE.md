@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Language Pack module for MikoPBX that provides Japanese localization:
 - 15 translation files in `Messages/ja/` (PHP arrays with Japanese UI strings)
-- 612 voice prompt files in `Sounds/ja-jp/` (GSM audio files)
+- 608 voice prompt files in `Sounds/ja-jp/` (WAV audio files from official Asterisk core-sounds-ja-1.6.1)
 - Module type: `languagepack` with language code `ja-jp`
 - Minimum MikoPBX version: 2025.1.1
 
@@ -33,8 +33,9 @@ This is a Language Pack module for MikoPBX that provides Japanese localization:
 3. No additional logic needed - base classes handle everything
 
 **Sound File Management**:
-- Enable: `SoundFilesConf::installModuleSounds()` copies files to system
-- Disable: `SoundFilesConf::removeModuleSounds()` removes files + language fallback
+- Enable: `SoundFilesConf::installModuleSounds()` copies files to system (replaces existing)
+- Disable: `SoundFilesConf::removeModuleSounds()` removes entire language directory, then attempts to restore original system sounds from `/offload/asterisk/sounds/{lang}/` if they exist
+- Philosophy: Language Packs are **full replacements** of the language, not extensions
 
 **Translation Files**: PHP arrays in `Messages/ja/` mirroring MikoPBX core structure:
 - Common.php, Extensions.php, GeneralSettings.php, etc.
@@ -71,7 +72,21 @@ phpstan analyze
 ## Important Notes
 
 - Language Packs have no database migrations or custom logic by design
-- Sound files are GSM format (Asterisk standard)
+- Sound files are WAV format (high quality, auto-converted to multiple formats by WorkerSoundFilesInit)
 - Only one Language Pack per language can be active (enforced by `PbxExtensionUtils::checkLanguagePackConflict()`)
 - When disabled, system automatically falls back to en-en if ja-jp was active
 - Translation files must match MikoPBX core structure for automatic loading
+
+### Sound File Removal and Restoration Behavior
+
+When a Language Pack module is **disabled**:
+1. The entire language directory (`/mountpoint/mikopbx/media/sounds/ja-jp/`) is removed
+2. System checks if original sounds exist in `/offload/asterisk/sounds/ja-jp/`
+3. If found, original system sounds are restored automatically
+4. If not found (normal for new languages not in Docker image), directory remains empty
+5. WorkerSoundFilesInit handles format conversion for restored files automatically
+
+This ensures:
+- Users get back original system sounds when disabling custom Language Packs
+- No data loss for languages shipped with MikoPBX
+- Clean removal for truly new languages (e.g., custom Language Packs for unsupported languages)
