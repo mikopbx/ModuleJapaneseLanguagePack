@@ -6,6 +6,13 @@
   "min_pbx_version": "2025.1.1",
   "module_type": "languagepack",
   "language_code": "ja-jp",
+  "translation_sync": {
+    "enabled": true,
+    "source_repo": "mikopbx/Core",
+    "source_branch": "develop",
+    "language_code": "ja",
+    "exclude_files": ["ModuleJapaneseLanguagePack.php"]
+  },
   "release_settings": {
     "publish_release": true,
     "changelog_enabled": true,

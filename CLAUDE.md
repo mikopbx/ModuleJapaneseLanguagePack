@@ -68,6 +68,12 @@ phpstan analyze
 - `language_code: "ja-jp"` - Language identifier
 - `min_pbx_version: "2025.1.1"` - Minimum compatible version
 - Release settings for GitHub releases and changelog
+- **Translation sync settings** (new):
+  - `translation_sync.enabled` - Enable/disable automatic translation sync from Core
+  - `translation_sync.source_repo` - Source repository (e.g., "mikopbx/Core")
+  - `translation_sync.source_branch` - Branch to sync from (e.g., "develop")
+  - `translation_sync.language_code` - Language code in source repo (e.g., "ja")
+  - `translation_sync.exclude_files` - Files to preserve (e.g., ["ModuleJapaneseLanguagePack.php"])
 
 ## Important Notes
 
@@ -90,3 +96,17 @@ This ensures:
 - Users get back original system sounds when disabling custom Language Packs
 - No data loss for languages shipped with MikoPBX
 - Clean removal for truly new languages (e.g., custom Language Packs for unsupported languages)
+
+### Translation Sync During Build
+
+When building Language Pack modules in GitHub Actions:
+1. If `translation_sync.enabled` is `true` in `module.json`, the build process automatically syncs translations
+2. Files are fetched from the specified `source_repo` and `source_branch` (e.g., mikopbx/Core@develop)
+3. All PHP files from `src/Common/Messages/{language_code}/` are copied to module's `Messages/{language_code}/`
+4. Files in `exclude_files` array are preserved (e.g., `ModuleJapaneseLanguagePack.php`)
+5. This ensures Language Packs always contain the latest Weblate translations from Core
+
+**Benefits:**
+- Language Packs automatically get updated translations without manual copying
+- Weblate changes in mikopbx/Core are propagated to Language Pack releases
+- Module-specific translation files can be preserved via `exclude_files`
