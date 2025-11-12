@@ -72,16 +72,25 @@ class ModuleJapaneseLanguagePackController extends BaseController
         }
         $this->view->soundFileCount = $soundFileCount;
 
-        // Count translation files
+        // Count translation files and strings
         $messagesDir = $this->moduleDir . '/Messages/ja';
         $translationFileCount = 0;
+        $translationStringCount = 0;
         if (is_dir($messagesDir)) {
             $files = scandir($messagesDir);
-            $translationFileCount = count(array_filter($files, function($file) use ($messagesDir) {
-                return is_file($messagesDir . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php';
-            }));
+            foreach ($files as $file) {
+                if (is_file($messagesDir . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                    $translationFileCount++;
+                    // Count translation strings in file
+                    $translations = include $messagesDir . '/' . $file;
+                    if (is_array($translations)) {
+                        $translationStringCount += count($translations);
+                    }
+                }
+            }
         }
         $this->view->translationFileCount = $translationFileCount;
+        $this->view->translationStringCount = $translationStringCount;
 
         // Set view path (Modules/ModuleJapaneseLanguagePack/ModuleJapaneseLanguagePack/index)
         $this->view->pick('Modules/' . $this->moduleUniqueID . '/' . $this->moduleUniqueID . '/index');
