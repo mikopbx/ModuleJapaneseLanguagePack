@@ -24,4 +24,4 @@ GNU General Public License v3.0
 
 ---
 
-**Developer**: [MIKO](https://www.miko.ru) | **Support**: help@miko.ru
+**Developer**: [MIKO](https://www.mikopbx.com) | **Support**: help@mikopbx.com
