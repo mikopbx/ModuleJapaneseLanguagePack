@@ -1,31 +1,15 @@
 <?php
-return [
-    /**
-     * Module translations (Russian)
-     */
-    'BreadcrumbModuleJapaneseLanguagePack' => 'Японский языковой пакет',
-    'SubHeaderModuleJapaneseLanguagePack' => 'Полная поддержка японского языка для MikoPBX',
 
-    // Module Language Pack
-    'mlp_SoundFiles' => 'Звуковые файлы',
-    'mlp_SoundFilesDescription' => 'Системные голосовые подсказки',
-    'mlp_Files' => 'файлов',
-    'mlp_Translations' => 'Переводы',
-    'mlp_TranslationsDescription' => 'Переводы пользовательского интерфейса',
-    'mlp_TranslationFiles' => 'файлов переводов',
-    'mlp_HowToUse' => 'Как использовать',
-    'mlp_HowToUseDescription' => 'Простая настройка',
-    'mlp_Step1' => 'Перейдите в Общие настройки и выберите японский язык (ja-jp)',
-    'mlp_Step2' => 'Система автоматически перезагрузится',
-    'mlp_ImportantNote' => 'Важное примечание',
-    'mlp_ImportantNoteText' => 'Этот модуль языкового пакета предоставляет только японские голосовые файлы и переводы. У модуля нет настроек - просто установите его и выберите японский язык в общих настройках системы.',
-    'mlp_WhatsIncluded' => 'Что включено',
-    'mlp_VoicePrompts' => 'Голосовые подсказки',
-    'mlp_VoicePromptsText' => 'Полный набор японских голосовых подсказок для меню, приветствий и уведомлений',
-    'mlp_UITranslations' => 'Переводы интерфейса',
-    'mlp_UITranslationsText' => 'Полный перевод административного интерфейса MikoPBX на японский язык',
-    'mlp_AutomaticIntegration' => 'Автоматическая интеграция',
-    'mlp_AutomaticIntegrationText' => 'Автоматически интегрируется в систему после установки - дополнительная настройка не требуется',
-    'mlp_GoToGeneralSettings' => 'Перейти к общим настройкам',
-    'mlp_ViewOnGitHub' => 'Посмотреть на GitHub',
+declare(strict_types=1);
+
+return [
+    'BreadcrumbModuleJapaneseLanguagePack' => 'Языковой пакет - Японский',
+    'SubHeaderModuleJapaneseLanguagePack' => 'Комплексная поддержка японского языка для системы MikoPBX',
+    'mlp_ja_SoundFiles' => 'Звуковых файлов',
+    'mlp_ja_TranslationFiles' => 'Файлов переводов',
+    'mlp_ja_TranslationStrings' => 'Строк переводов',
+    'mlp_ja_Step1' => 'После активации языкового пакета выберите нужный язык в Общих настройках.',
+    'mlp_ja_GoToGeneralSettings' => 'Перейти в Общие настройки',
+    'mlp_ja_HelpTranslate' => 'Хотите улучшить перевод? Помогите нам на Weblate!',
+    'mlp_ja_WeblateLink' => 'Открыть Weblate',
 ];
