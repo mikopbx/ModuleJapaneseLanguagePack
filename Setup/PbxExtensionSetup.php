@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  * MikoPBX - free phone system for small business
  * Copyright © 2017-2025 Alexey Portnov and Nikolay Beketov
