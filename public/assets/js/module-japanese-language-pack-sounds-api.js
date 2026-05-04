@@ -1,0 +1,62 @@
+"use strict";
+
+/*
+ * MikoPBX - free phone system for small business
+ * Copyright © 2017-2026 Alexey Portnov and Nikolay Beketov
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with this program.
+ * If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* global PbxApiClient */
+
+/**
+ * LanguagePackSoundsAPI — REST API v3 client for the language-pack sound files
+ * inventory and conversion progress.
+ *
+ * Mirrors the Core convention (see `js/src/PbxAPI/sound-files-api.js`):
+ * a `PbxApiClient` instance with `customMethods` for the two endpoints,
+ * exposing `getList(params, callback)` and `getProgressSnapshot(callback)`
+ * to the UI layer.
+ *
+ * @class LanguagePackSoundsAPI
+ */
+var LanguagePackSoundsAPI = new PbxApiClient({
+  endpoint: '/pbxcore/api/v3/module-japanese-language-pack',
+  customMethods: {
+    getList: '/sounds',
+    getProgress: '/sounds/progress'
+  }
+});
+Object.assign(LanguagePackSoundsAPI, {
+  /**
+   * Get list of sound files for the DataTable.
+   * Accepts standard DataTables server-side params (start, length, search[value], order[0][...]).
+   *
+   * @param {object} params Query parameters from DataTable
+   * @param {function} callback Callback receiving raw response
+   */
+  getList: function getList(params, callback) {
+    return this.callCustomMethod('getList', params || {}, callback);
+  },
+
+  /**
+   * Poll conversion progress for this language pack.
+   *
+   * @param {function} callback Callback receiving the progress payload
+   */
+  getProgressSnapshot: function getProgressSnapshot(callback) {
+    return this.callCustomMethod('getProgress', {}, callback);
+  }
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9tb2R1bGUtamFwYW5lc2UtbGFuZ3VhZ2UtcGFjay1zb3VuZHMtYXBpLmpzIl0sIm5hbWVzIjpbIkxhbmd1YWdlUGFja1NvdW5kc0FQSSIsIlBieEFwaUNsaWVudCIsImVuZHBvaW50IiwiY3VzdG9tTWV0aG9kcyIsImdldExpc3QiLCJnZXRQcm9ncmVzcyIsIk9iamVjdCIsImFzc2lnbiIsInBhcmFtcyIsImNhbGxiYWNrIiwiY2FsbEN1c3RvbU1ldGhvZCIsImdldFByb2dyZXNzU25hcHNob3QiXSwibWFwcGluZ3MiOiI7O0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTs7QUFFQTs7QUFFQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsSUFBTUEscUJBQXFCLEdBQUcsSUFBSUMsWUFBSixDQUFpQjtBQUMzQ0MsRUFBQUEsUUFBUSxFQUFFLCtDQURpQztBQUUzQ0MsRUFBQUEsYUFBYSxFQUFFO0FBQ1hDLElBQUFBLE9BQU8sRUFBRSxTQURFO0FBRVhDLElBQUFBLFdBQVcsRUFBRTtBQUZGO0FBRjRCLENBQWpCLENBQTlCO0FBUUFDLE1BQU0sQ0FBQ0MsTUFBUCxDQUFjUCxxQkFBZCxFQUFxQztBQUNqQztBQUNKO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNJSSxFQUFBQSxPQVJpQyxtQkFRekJJLE1BUnlCLEVBUWpCQyxRQVJpQixFQVFQO0FBQ3RCLFdBQU8sS0FBS0MsZ0JBQUwsQ0FBc0IsU0FBdEIsRUFBaUNGLE1BQU0sSUFBSSxFQUEzQyxFQUErQ0MsUUFBL0MsQ0FBUDtBQUNILEdBVmdDOztBQVlqQztBQUNKO0FBQ0E7QUFDQTtBQUNBO0FBQ0lFLEVBQUFBLG1CQWpCaUMsK0JBaUJiRixRQWpCYSxFQWlCSDtBQUMxQixXQUFPLEtBQUtDLGdCQUFMLENBQXNCLGFBQXRCLEVBQXFDLEVBQXJDLEVBQXlDRCxRQUF6QyxDQUFQO0FBQ0g7QUFuQmdDLENBQXJDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIE1pa29QQlggLSBmcmVlIHBob25lIHN5c3RlbSBmb3Igc21hbGwgYnVzaW5lc3NcbiAqIENvcHlyaWdodCDCqSAyMDE3LTIwMjYgQWxleGV5IFBvcnRub3YgYW5kIE5pa29sYXkgQmVrZXRvdlxuICpcbiAqIFRoaXMgcHJvZ3JhbSBpcyBmcmVlIHNvZnR3YXJlOiB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBpdCBhbmQvb3IgbW9kaWZ5XG4gKiBpdCB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFzIHB1Ymxpc2hlZCBieVxuICogdGhlIEZyZWUgU29mdHdhcmUgRm91bmRhdGlvbjsgZWl0aGVyIHZlcnNpb24gMyBvZiB0aGUgTGljZW5zZSwgb3JcbiAqIChhdCB5b3VyIG9wdGlvbikgYW55IGxhdGVyIHZlcnNpb24uXG4gKlxuICogVGhpcyBwcm9ncmFtIGlzIGRpc3RyaWJ1dGVkIGluIHRoZSBob3BlIHRoYXQgaXQgd2lsbCBiZSB1c2VmdWwsXG4gKiBidXQgV0lUSE9VVCBBTlkgV0FSUkFOVFk7IHdpdGhvdXQgZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZlxuICogTUVSQ0hBTlRBQklMSVRZIG9yIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLiAgU2VlIHRoZVxuICogR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy5cbiAqXG4gKiBZb3Ugc2hvdWxkIGhhdmUgcmVjZWl2ZWQgYSBjb3B5IG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSBhbG9uZyB3aXRoIHRoaXMgcHJvZ3JhbS5cbiAqIElmIG5vdCwgc2VlIDxodHRwczovL3d3dy5nbnUub3JnL2xpY2Vuc2VzLz4uXG4gKi9cblxuLyogZ2xvYmFsIFBieEFwaUNsaWVudCAqL1xuXG4vKipcbiAqIExhbmd1YWdlUGFja1NvdW5kc0FQSSDigJQgUkVTVCBBUEkgdjMgY2xpZW50IGZvciB0aGUgbGFuZ3VhZ2UtcGFjayBzb3VuZCBmaWxlc1xuICogaW52ZW50b3J5IGFuZCBjb252ZXJzaW9uIHByb2dyZXNzLlxuICpcbiAqIE1pcnJvcnMgdGhlIENvcmUgY29udmVudGlvbiAoc2VlIGBqcy9zcmMvUGJ4QVBJL3NvdW5kLWZpbGVzLWFwaS5qc2ApOlxuICogYSBgUGJ4QXBpQ2xpZW50YCBpbnN0YW5jZSB3aXRoIGBjdXN0b21NZXRob2RzYCBmb3IgdGhlIHR3byBlbmRwb2ludHMsXG4gKiBleHBvc2luZyBgZ2V0TGlzdChwYXJhbXMsIGNhbGxiYWNrKWAgYW5kIGBnZXRQcm9ncmVzc1NuYXBzaG90KGNhbGxiYWNrKWBcbiAqIHRvIHRoZSBVSSBsYXllci5cbiAqXG4gKiBAY2xhc3MgTGFuZ3VhZ2VQYWNrU291bmRzQVBJXG4gKi9cbmNvbnN0IExhbmd1YWdlUGFja1NvdW5kc0FQSSA9IG5ldyBQYnhBcGlDbGllbnQoe1xuICAgIGVuZHBvaW50OiAnL3BieGNvcmUvYXBpL3YzL21vZHVsZS1qYXBhbmVzZS1sYW5ndWFnZS1wYWNrJyxcbiAgICBjdXN0b21NZXRob2RzOiB7XG4gICAgICAgIGdldExpc3Q6ICcvc291bmRzJyxcbiAgICAgICAgZ2V0UHJvZ3Jlc3M6ICcvc291bmRzL3Byb2dyZXNzJyxcbiAgICB9LFxufSk7XG5cbk9iamVjdC5hc3NpZ24oTGFuZ3VhZ2VQYWNrU291bmRzQVBJLCB7XG4gICAgLyoqXG4gICAgICogR2V0IGxpc3Qgb2Ygc291bmQgZmlsZXMgZm9yIHRoZSBEYXRhVGFibGUuXG4gICAgICogQWNjZXB0cyBzdGFuZGFyZCBEYXRhVGFibGVzIHNlcnZlci1zaWRlIHBhcmFtcyAoc3RhcnQsIGxlbmd0aCwgc2VhcmNoW3ZhbHVlXSwgb3JkZXJbMF1bLi4uXSkuXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge29iamVjdH0gcGFyYW1zIFF1ZXJ5IHBhcmFtZXRlcnMgZnJvbSBEYXRhVGFibGVcbiAgICAgKiBAcGFyYW0ge2Z1bmN0aW9ufSBjYWxsYmFjayBDYWxsYmFjayByZWNlaXZpbmcgcmF3IHJlc3BvbnNlXG4gICAgICovXG4gICAgZ2V0TGlzdChwYXJhbXMsIGNhbGxiYWNrKSB7XG4gICAgICAgIHJldHVybiB0aGlzLmNhbGxDdXN0b21NZXRob2QoJ2dldExpc3QnLCBwYXJhbXMgfHwge30sIGNhbGxiYWNrKTtcbiAgICB9LFxuXG4gICAgLyoqXG4gICAgICogUG9sbCBjb252ZXJzaW9uIHByb2dyZXNzIGZvciB0aGlzIGxhbmd1YWdlIHBhY2suXG4gICAgICpcbiAgICAgKiBAcGFyYW0ge2Z1bmN0aW9ufSBjYWxsYmFjayBDYWxsYmFjayByZWNlaXZpbmcgdGhlIHByb2dyZXNzIHBheWxvYWRcbiAgICAgKi9cbiAgICBnZXRQcm9ncmVzc1NuYXBzaG90KGNhbGxiYWNrKSB7XG4gICAgICAgIHJldHVybiB0aGlzLmNhbGxDdXN0b21NZXRob2QoJ2dldFByb2dyZXNzJywge30sIGNhbGxiYWNrKTtcbiAgICB9LFxufSk7XG4iXX0=
